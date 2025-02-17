@@ -1,0 +1,21 @@
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Événements</h1>
+  <div class="row row-cols-1 row-cols-md-4 g-4">
+    <% @events.each do |event| %>
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title"><%= event.title %></h5>
+            <p class="card-text"><strong>Date de début :</strong> <%= event.start_date %></p>
+            <p class="card-text"><strong>Durée :</strong> <%= event.duration %> minutes</p>
+            <p class="card-text"><strong>Prix :</strong> <%= event.price %> €</p>
+            <p class="card-text"><strong>Lieu :</strong> <%= event.location %></p>
+            <p class="card-text"><strong>Créé par :</strong> <%= event.user.email %></p>
+            <p class="card-text"><strong>Nombre d'inscrits :</strong> <%= event.attendees.count %></p>
+            <%= link_to 'Voir plus', event_path(event), class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="container">
+  <h1><%= @event.title %></h1>
+  <p><strong>Description :</strong> <%= @event.description %></p>
+  <p><strong>Date de début :</strong> <%= @event.start_date %></p>
+  <p><strong>Durée :</strong> <%= @event.duration %> minutes</p>
+  <p><strong>Prix :</strong> <%= @event.price %> €</p>
+  <p><strong>Lieu :</strong> <%= @event.location %></p>
+  <p><strong>Créé par :</strong> <%= @event.user.email %></p>
+  <p><strong>Nombre d'inscrits :</strong> <%= @event.attendees.count %></p>
+
+  <% if logged_in? %>
+    <% if @event.attendees.include?(current_user) %>
+      <%= button_to 'Se désinscrire', unregister_event_path(@event), method: :delete, class: "btn btn-secondary" %>
+    <% else %>
+      <%= button_to 'S\'inscrire', register_event_path(@event), method: :post, class: "btn btn-primary" %>
+    <% end %>
+
+    <% if current_user == @event.user %>
+      <%= button_to "Annuler l'événement", cancel_event_path(@event),
+                    method: :delete,
+                    data: { confirm: "Êtes-vous sûr de vouloir annuler cet événement ?" },
+                    class: "btn btn-danger" %>
+    <% end %>
+  <% end %>
+</div>
