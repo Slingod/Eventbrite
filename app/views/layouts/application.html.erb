@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
   <title><%= content_for(:title) || "Eventbrite" %></title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -8,56 +8,73 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%= yield :head %>
-
-  <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+  <%# PWA manifest pour installation sur mobile %>
   <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
   <link rel="icon" href="/icon.png" type="image/png">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icon.png">
 
-  <%# Includes all stylesheet files in app/assets/stylesheets %>
   <%= stylesheet_link_tag 'app', media: 'all', 'data-turbo-track': 'reload' %>
   <%= javascript_importmap_tags %>
 </head>
 <body>
-  <header class="text-center py-4 bg-dark text-white">
-    <h1 class="display-4">Eventbrite</h1>
+  <!-- Header -->
+  <header class="bg-dark text-white py-4">
+    <div class="container text-center">
+      <h1 class="display-4">Eventbrite</h1>
+    </div>
   </header>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <% if logged_in? %>
-            <li class="nav-item">
-              <%= link_to "Mon Profil", user_path(current_user), class: "nav-link btn btn-outline-light" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Créer un Événement", new_event_path, class: "nav-link btn btn-outline-light" %>
-            </li>
-            <li class="nav-item">
-              <%= button_to "Se déconnecter", logout_path, method: :delete, class: "btn btn-danger" %>
-            </li>
-          <% else %>
-            <li class="nav-item">
-              <%= link_to "S'inscrire", signup_path, class: "nav-link btn btn-outline-light" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Se Connecter", login_path, class: "nav-link btn btn-outline-light" %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/">Eventbrite</a>
+    
+    <!-- Bouton mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <span class="navbar-text text-white mx-2">Bonjour <%= current_user.first_name %> 👋</span>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Créer un Événement", new_event_path, class: "btn btn-primary mx-2" %>
+          </li>
+          <li class="nav-item">
+            <%= button_to "Se Déconnecter", logout_path, method: :delete, class: "btn btn-danger" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <span class="navbar-text text-white mx-2">Bienvenue sur Eventbrite ! Connectez-vous pour créer ou rejoindre un événement.</span>
+          </li>
+          <li class="nav-item">
+            <%= link_to "S'inscrire", signup_path, class: "btn btn-success mx-2" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Se Connecter", login_path, class: "btn btn-info mx-2" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Contenu principal -->
   <div class="container mt-4">
     <%= yield %>
   </div>
+
+  <!-- Footer -->
+  <footer class="footer bg-dark text-white text-center py-3">
+    <div class="container">
+      <p class="mb-0">© <%= Time.now.year %> Eventbrite - Tous droits réservés</p>
+    </div>
+  </footer>
 </body>
 </html>

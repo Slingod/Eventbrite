@@ -8,18 +8,19 @@
   <p><strong>Créé par :</strong> <%= @event.user.email %></p>
   <p><strong>Nombre d'inscrits :</strong> <%= @event.attendees.count %></p>
 
-  <% if logged_in? %>
+  <% if user_signed_in? %>
     <% if @event.attendees.include?(current_user) %>
       <%= button_to 'Se désinscrire', unregister_event_path(@event), method: :delete, class: "btn btn-secondary" %>
     <% else %>
       <%= button_to 'S\'inscrire', register_event_path(@event), method: :post, class: "btn btn-primary" %>
     <% end %>
 
-    <% if current_user == @event.user %>
-      <%= button_to "Supprimer l'événement", event_path(@event),
-              method: :delete,
-              data: { confirm: "Êtes-vous sûr de vouloir supprimer cet événement ?" },
-              class: "btn btn-danger" %>
-    <% end %>
+    <% if current_user == @event.user || current_user&.admin? %>
+  <%= button_to "Supprimer l'événement", event_path(@event),
+                method: :delete,
+                data: { confirm: "Êtes-vous sûr de vouloir supprimer cet événement ?" },
+                class: "btn btn-danger" %>
+<% end %>
+
   <% end %>
 </div>

@@ -39,6 +39,7 @@ class EventsController < ApplicationController
     @event.destroy
     redirect_to events_path, notice: "Événement supprimé."
   end
+  
 
   def register
     unless @event.attendees.include?(current_user)
@@ -55,7 +56,7 @@ class EventsController < ApplicationController
 
   def cancel
     @event.update(status: 'canceled')
-    redirect_to event_path(@event), notice: 'Événement annulé.'
+    redirect_to events_path, notice: 'Événement annulé.'
   end
 
   private
@@ -72,7 +73,7 @@ class EventsController < ApplicationController
   end
 
   def authenticate_user!
-    redirect_to login_path, alert: "Vous devez être connecté." unless logged_in?
+    redirect_to login_path, alert: "Vous devez être connecté." unless user_signed_in?
   end
 
   def authorize_admin
