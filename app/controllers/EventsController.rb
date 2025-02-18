@@ -1,6 +1,8 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create register unregister cancel]
   before_action :set_event, only: %i[show edit update destroy register unregister cancel]
+  before_action :authorize_admin, only: %i[edit update]
+  before_action :authorize_destroy, only: [:destroy]
 
   def index
     @events = Event.all
@@ -71,5 +73,15 @@ class EventsController < ApplicationController
 
   def authenticate_user!
     redirect_to login_path, alert: "Vous devez être connecté." unless logged_in?
+  end
+
+  def authorize_admin
+    redirect_to root_path, alert: "Accès refusé" unless current_user&.admin?
+  end
+
+  def authorize_destroy
+    unless current_user&.admin? || current_user == @event.user
+      redirect_to root_path, alert: "Accès refusé"
+    end
   end
 end

@@ -14,4 +14,9 @@ class User < ApplicationRecord
     update(password_reset_token: token, password_reset_sent_at: Time.current)
     UserMailer.reset_password_instructions(self, token).deliver_now
   end
+
+  # Méthode pour vérifier si l'utilisateur est un administrateur
+  def admin?
+    role == "admin"
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_17_205909) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_18_074818) do
   create_table "event_attendances", force: :cascade do |t|
     t.integer "event_id", null: false
     t.integer "user_id", null: false
@@ -72,6 +72,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_17_205909) do
     t.string "description"
     t.string "password_reset_token"
     t.datetime "password_reset_sent_at"
+    t.string "role"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
