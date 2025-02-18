@@ -22,7 +22,7 @@
   <%= javascript_importmap_tags %>
 </head>
 <body>
-  <header class="text-center py-4">
+  <header class="text-center py-4 bg-dark text-white">
     <h1 class="display-4">Eventbrite</h1>
   </header>
 
@@ -32,7 +32,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <% if logged_in? %>
             <li class="nav-item">
               <%= link_to "Mon Profil", user_path(current_user), class: "nav-link btn btn-outline-light" %>

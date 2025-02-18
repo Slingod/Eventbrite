@@ -16,10 +16,10 @@
     <% end %>
 
     <% if current_user == @event.user %>
-      <%= button_to "Annuler l'événement", cancel_event_path(@event),
-                    method: :delete,
-                    data: { confirm: "Êtes-vous sûr de vouloir annuler cet événement ?" },
-                    class: "btn btn-danger" %>
+      <%= button_to "Supprimer l'événement", event_path(@event),
+              method: :delete,
+              data: { confirm: "Êtes-vous sûr de vouloir supprimer cet événement ?" },
+              class: "btn btn-danger" %>
     <% end %>
   <% end %>
 </div>

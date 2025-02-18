@@ -3,7 +3,7 @@
   <div class="row row-cols-1 row-cols-md-4 g-4">
     <% @events.each do |event| %>
       <div class="col">
-        <div class="card h-100">
+        <div class="card h-100 text-center border-light">
           <div class="card-body">
             <h5 class="card-title"><%= event.title %></h5>
             <p class="card-text"><strong>Date de début :</strong> <%= event.start_date %></p>
